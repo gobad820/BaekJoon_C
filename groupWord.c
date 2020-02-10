@@ -3,29 +3,45 @@
 
 int main(int argc, char const *argv[])
 {
-    int number;
-    int iter;
-    scanf("%d", &iter);
-    for (int i = 0; i < iter; i++)
+    int iteration;
+    int result = iteration;
+    for (int i = 0; i < iteration; i++)
     {
-        char strings[101];
-        int alphabet[26] = {0};
-        scanf("%s", strings);
-        for (int j = 0; j < strlen(strings); j++)
+        char word[100];
+        int alpha[26] = {0};
+        scanf("%s", word);
+        for (int j = 0; j < strlen(word); j++)
         {
-            for (int a = 0; a < 26; a++)
+            if (alpha[word[j] - 'a'] == 0)
+                alpha[word[j] - 'a']++;
+            if (j > 0)
             {
-                if (strings[j] == 'a' + a)
+                if (alpha[word[j] - 'a'] != 0 && word[j] == word[j - 1])
                 {
-                    alphabet[a]++;
+                    result--;
                     break;
                 }
             }
-            if( j != 0 strings[j-1])
         }
-        for (int b = 0; b < 26; b++)
-            printf("%d", alphabet[b]);
     }
-
-    return 0;
+    printf("%d", result);
 }
+
+// 반복 횟수 입력
+// 횟수 반복{
+//     특정 문자열 입력
+//     문자열 길이만큼 반복{
+//         문자여링 그룹 단어인지 확인
+//         그룹 단어이면 결과 + 1
+//     }
+// }
+// 결과 출력
+
+// TODO:
+// 그룹 단어 확인
+// 1. 문자가 처음 나온 경우
+//  해당되는 알파 정수 배열에 1플러스
+// 2. 문자가 처음은 아니지만 이전 문자와 같은 문자인 경우
+// 반복
+
+// 3. 문자가 처음도 아니면서 이전 문자와 다른 경우 그룹 단어 제외
