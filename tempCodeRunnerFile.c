@@ -1,1 +1,1 @@
-     // printf("\n");
+rintf("%c", alpha + j);

@@ -1,54 +1,25 @@
-// #include <stdio.h>
-// #include <string.h>
-
-// int main(int argc, char const *argv[])
-// {
-//     int iteration;
-//     int result = iteration;
-//     for (int i = 0; i < iteration; i++)
-//     {
-//         char word[100];
-//         int alpha[26] = {0};
-//         scanf("%s", word);
-//         for (int j = 0; j < strlen(word); j++)
-//         {
-//             if (alpha[word[j] - 'a'] == 0)
-//                 alpha[word[j] - 'a']++;
-//             if (j > 0)
-//             {
-//                 if (alpha[word[j] - 'a'] != 0 && word[j] == word[j - 1])
-//                 {
-//                     result--;
-//                     break;
-//                 }
-//             }
-//         }
-//     }
-//     printf("%d", result);
-
-// }
-
-// // 반복 횟수 입력
-// // 횟수 반복{
-// //     특정 문자열 입력
-// //     문자열 길이만큼 반복{
-// //         문자여링 그룹 단어인지 확인
-// //         그룹 단어이면 결과 + 1
-// //     }
-// // }
-// // 결과 출력
-
-// // TODO:
-// // 그룹 단어 확인
-// // 1. 문자가 처음 나온 경우
-// //  해당되는 알파 정수 배열에 1플러스
-// // 2. 문자가 처음은 아니지만 이전 문자와 같은 문자인 경우
-// // 반복
-
-// // 3. 문자가 처음도 아니면서 이전 문자와 다른 경우 그룹 단어 제외
+/*
+TODO:
+1. 몇개의 단어를 입력 받는가
+    _1 scanf를 이용하여 for문을 몇번 반복할지 결정
+2. 각가 입력된 단어는 그룹단어인가?
+    _2 그룹 단어 확인 알고리즘
+        단어를 문자열로 입력 받는다
+        단어를 문자별로 각가 분석
+            알파벳 개수인 26개의 배열을 생성
+            각 배열은 모두 기본값 0을 가지고 있음
+            문자가 나오면 해당되는 알파벳 배열의 값을 1로 변경(처음의 경우)
+            이미 나왔던 문자이나 그 전의 문자와 동일한 경우는 continue
+            이미 나왔던 문자이나 그 전의 문자와 동일하지 않은 경우는 그 즉시 for문 break하고 다음 단어 검색으로 넘어감
+        
+3. 그룹 단어는 몇개인가?
+    _3 printf
+    
+FIXME:
+1.반례는 무엇인가?
+*/
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 int main(int argc, char const *argv[])
@@ -56,24 +27,19 @@ int main(int argc, char const *argv[])
     int iteration;
     scanf("%d", &iteration);
     int result = iteration;
-    int al[26] = {0};
     for (int i = 0; i < iteration; i++)
     {
-        char *alpha = (char *)malloc(sizeof(char) * 101);
-        scanf("%s", alpha);
-        for (int j = 0; j < strlen(alpha); j++)
+        char word[101];
+        int alpha[26] = {0};
+        scanf("%s", word);
+        int length = strlen(word);
+        for (int j = 0; j < length; j++)
         {
-            printf("%c", alpha + j);
-            if (j == 0)
-                al[(int)(alpha + j - 'a')] = 1;
-            if (al[(int)(alpha + j - 'a')] == 0 && j > 0)
-                al[(int)(alpha + j - 'a')] = 1;
-            if (al[(int)(alpha + j - 'a')] == 1 && alpha + j == alpha + j - 1)
-                al[(int)(alpha + j - 'a')] = 1;
-            if (al[(int)(alpha + j - 'a')] == 1 && alpha + j != alpha + j - 1)
+            if (alpha[word[j] - 'a'] == 0)
+                alpha[word[j] - 'a'] = 1;
+            else if (alpha[word[j] - 'a'] == 1 && word[j] != word[j - 1])
             {
-                iteration--;
-                free(alpha);
+                result--;
                 break;
             }
         }
